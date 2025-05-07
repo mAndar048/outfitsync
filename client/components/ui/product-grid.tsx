@@ -12,6 +12,9 @@ interface Product {
   image: string
   source: string
   thumbnail: string
+  title?: string
+  url?: string
+  description?: string
 }
 
 interface ProductGridProps {
@@ -50,25 +53,30 @@ export function ProductGrid({ products, isLoading = false }: ProductGridProps) {
         <Card key={index} className="overflow-hidden">
           <div className="relative h-48">
             <Image
-              src={product.thumbnail || product.image}
-              alt={product.name}
+              src={product.thumbnail || product.image || product.url || ""}
+              alt={product.name || product.title || ""}
               fill
               className="object-cover"
             />
           </div>
           <CardContent className="p-4">
-            <h3 className="font-medium line-clamp-2">{product.name}</h3>
+            <h3 className="font-medium line-clamp-2">{product.name || product.title}</h3>
             <p className="text-sm text-muted-foreground mt-1">
               {typeof product.price === "number"
                 ? `$${product.price.toFixed(2)}`
                 : product.price}
             </p>
+            {product.description && (
+              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                {product.description}
+              </p>
+            )}
           </CardContent>
           <CardFooter className="p-4 pt-0">
             <Button
               variant="outline"
               className="w-full"
-              onClick={() => window.open(product.link, "_blank")}
+              onClick={() => window.open(product.link || product.url, "_blank")}
             >
               View Product
               <ExternalLink className="w-4 h-4 ml-2" />
