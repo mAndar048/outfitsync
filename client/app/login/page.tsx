@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -29,7 +28,8 @@ export default function LoginPage() {
       } else {
         setError('Invalid email or password');
       }
-    } catch (err) {
+    } catch (error) {
+      console.error('Login error:', error);
       setError('An error occurred. Please try again.');
     }
   };

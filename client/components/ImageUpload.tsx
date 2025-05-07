@@ -4,9 +4,22 @@ import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  category: string;
+  // Add other properties as needed
+}
+
+interface CategoryItems {
+  items: Item[];
+}
+
 interface ImageUploadProps {
   onImagesChange: (files: File[]) => void;
-  onItemsGenerated: (items: any[]) => void;
+  onItemsGenerated: (items: Item[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
@@ -62,7 +75,8 @@ export default function ImageUpload({
 
       const data = await response.json();
       if (data.items) {
-        const allItems = Object.values(data.items).flatMap((category: any) => category.items);
+        const allItems = Object.values(data.items as Record<string, CategoryItems>)
+          .flatMap((category) => category.items);
         onItemsGenerated(allItems);
       }
     } catch (error) {

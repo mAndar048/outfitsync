@@ -39,7 +39,7 @@ jobs:
     
     - name: Run ESLint
       working-directory: ./client
-      run: npm run lint || true  # Continue even if linting fails
+      run: npm run lint
     
     - name: Build client
       working-directory: ./client
@@ -50,6 +50,8 @@ jobs:
         NODE_ENV=production npm run build
       env:
         NEXT_TELEMETRY_DISABLED: 1
+        # Add any other environment variables your app needs
+        NEXT_PUBLIC_API_URL: http://localhost:8000
     
     - name: Run client tests
       working-directory: ./client

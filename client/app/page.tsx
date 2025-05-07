@@ -5,15 +5,18 @@ import Navigation from '@/components/Navigation';
 import ImageUpload from '@/components/ImageUpload';
 import ItemDisplay from '@/components/ItemDisplay';
 
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  // Add other properties as needed
+}
+
 export default function Home() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [files, setFiles] = useState<File[]>([]);
-
-  const handleImagesChange = (newFiles: File[]) => {
-    setFiles(newFiles);
-  };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -22,7 +25,7 @@ export default function Home() {
         <div className="px-4 py-6 sm:px-0">
           <div className="border-4 border-dashed border-gray-200 rounded-lg p-6">
             <ImageUpload
-              onImagesChange={handleImagesChange}
+              onImagesChange={() => {}} // Empty function since we don't use files state anymore
               onItemsGenerated={setItems}
               setLoading={setLoading}
               setError={setError}
