@@ -1,11 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-
-interface Item {
-  url: string;
-  description: string;
-}
+import { Item } from '@/lib/types';
 
 interface ItemDisplayProps {
   items: Item[];
@@ -25,6 +21,7 @@ export default function ItemDisplay({ items }: ItemDisplayProps) {
             />
           </div>
           <div className="p-4">
+            <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
             <p className="text-gray-700 text-sm">{item.description}</p>
           </div>
         </div>

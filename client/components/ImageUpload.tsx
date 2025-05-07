@@ -3,15 +3,7 @@
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
-
-interface Item {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-  // Add other properties as needed
-}
+import { Item } from '@/lib/types';
 
 interface CategoryItems {
   items: Item[];
@@ -76,7 +68,11 @@ export default function ImageUpload({
       const data = await response.json();
       if (data.items) {
         const allItems = Object.values(data.items as Record<string, CategoryItems>)
-          .flatMap((category) => category.items);
+          .flatMap((category) => category.items)
+          .map(item => ({
+            ...item,
+            url: item.imageUrl || item.url // Handle both url and imageUrl properties
+          }));
         onItemsGenerated(allItems);
       }
     } catch (error) {

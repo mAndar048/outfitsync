@@ -44,8 +44,6 @@ jobs:
     - name: Build client
       working-directory: ./client
       run: |
-        # Disable telemetry
-        npx next telemetry disable
         # Run build with production environment
         NODE_ENV=production npm run build
       env:

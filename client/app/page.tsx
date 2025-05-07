@@ -4,14 +4,7 @@ import { useState } from "react";
 import Navigation from '@/components/Navigation';
 import ImageUpload from '@/components/ImageUpload';
 import ItemDisplay from '@/components/ItemDisplay';
-
-interface Item {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  // Add other properties as needed
-}
+import { Item } from '@/lib/types';
 
 export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
